@@ -1,5 +1,5 @@
--- DROP DATABASE cheweats_restaurants;
-CREATE DATABASE cheweats_restaurants;
+-- DROP DATABASE cheweats;
+CREATE DATABASE cheweats;
 USE cheweats_restaurants;
 
 CREATE TABLE restaurants (

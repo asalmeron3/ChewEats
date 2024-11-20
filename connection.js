@@ -1,25 +1,21 @@
-import mysql from "mysql2";
-import dotenv from "dotenv";
+let mysql = require("mysql2");
+let dotenv = require("dotenv");
 dotenv.config();
 
-const connection = mysql.createConnection({
+var connection = mysql.createConnection({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE
 });
 
-connection.connect();
+connection.connect(function(err) {
+  if(err) {
+    console.log("Error connecting to Cheweats database: " + err.stack);
+    return;
+  } else {
+    console.log("Connection to Cheweats database successful: " + connection.threadId);
+  }
+});
 
-function getRestaurants(){
-  connection.query("SELECT * FROM restaurants", function(err, results){
-    if(err) {
-      console.log(err);
-    } else {
-      console.log(results)
-      return results;
-    }
-  });
-}
-
-const rests = getRestaurants();
+module.exports = connection;
