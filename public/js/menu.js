@@ -1,7 +1,14 @@
-let menu = $("<div>").attr("class", "menu");
-let menuItem = $("<div>").attr("class", "menu-item");
+function showRestMenu(restId){
+  $(".menu-box").empty();
+  let menu = $("<table>").attr("class", "menu");
 
-menuItem.append(`<table><tr><td> ${"FoodNamePlaceHolder"}</td><td>${"PricePlaceHolder"}</td></tr></table>`);
-menu.append(menuItem);
+  $.get("/api/menu-items/"+ restId, function(data){
+    data.forEach(e => {
+      //let menu = $("<div>").attr("class", "menu");
+      //let menuItem = $("<div>").attr("class", "menu-item");
+      menu.append(`<tr><td> ${e.name}</td><td>${e.price}</td></tr>`);
+    });
 
-$(".menu-box").append(menu);
+    $(".menu-box").append(menu);
+  });
+};

@@ -1,8 +1,8 @@
-$.get("/api", function(data){
+$.get("/api/restaurants", function(data){
   data.forEach(e => {
     let restaurant = $("<div>").attr({
       "class": "restaurant",
-      "id": `${e.name}`
+      "dbid": `${e.id}`
     });
     let restaurantPic = $("<img>").attr({
       "class": "restaurant-img",
@@ -14,14 +14,12 @@ $.get("/api", function(data){
     restaurant.append(`<p> Restaurant's Shared Rate: ${e.shared_rate_per_mile}</p>`);
 
     $(".restaurant-list").append(restaurant);
-
-    $(".restaurant").on("click", function(){
-      let restId = $(this).attr("id");
-      showRestMenu(restId);
-    });
+    
   });
-});
 
-function showRestMenu(restName){
-  $(".menu-box")[0].classList.toggle("hidden");
-}
+  $(".restaurant").on("click", function(){
+    let restId = $(this).attr("dbid");
+    showRestMenu(restId);
+  });
+
+});
