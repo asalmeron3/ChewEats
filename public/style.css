@@ -1,3 +1,39 @@
-/* .hidden {
-  display: none;
-} */
+h1,
+h2 {
+  text-align: center;
+}
+
+.restaurant-list {
+  background-color: aquamarine;
+}
+
+.menu-box {
+  background-color: pink;
+}
+
+.cart {
+  background-color: palegoldenrod;
+}
+
+.landing {
+  display: grid;
+}
+
+@media screen and (max-width: 600px) {
+  .landing {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .landing {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .restaurant-list {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
