@@ -1,12 +1,17 @@
 function showRestMenu(restId){
-  $(".menu").empty();
-  let menu = $("<table>").attr("class", "menu");
-
+  $(".menu-box").empty();
+  let menu = $(".menu-box");
   $.get("/api/menu-items/"+ restId, function(data){
     data.forEach(e => {
-      menu.append(`<tr><td> ${e.name}</td><td>${e.price}</td></tr>`);
+      let rowInfo = $("<tr>").attr({
+        "class": "menu-item",
+        "name": e.name,
+        "price": e.price
+      }).append(`<td>${e.name}</td><td>${e.price}</td>`);
+      menu.append(rowInfo);
+      
     });
 
-    $(".menu-box").append(menu);
+    //$(".menu").append(menu);
   });
 };
