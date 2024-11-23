@@ -4,11 +4,10 @@ function reviewOrder(){
 
 
 function addToOrder(menuItem){
-  console.log(menuItem.data("name") + " : " + menuItem.data("price"));
+  // menuItem is an obj with the keys name, price, and restId
 };
 
-$(".menu").on("click", "tr", function(){
-  let row = this;
-  console.log(this);
-  addToOrder(row);
+$(".menu").on("click", ".menu-item", function(){
+  let rowDataObj = $(this).data();
+  addToOrder(rowDataObj);
 });

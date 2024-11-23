@@ -1,8 +1,11 @@
+let currentRestData;
+
 $.get("/api/restaurants", function(data){
   data.forEach(e => {
     let restaurant = $("<div>").attr({
       "class": "restaurant",
-      "dbid": `${e.id}`
+      "data-dbid": `${e.id}`,
+      "data-rate": `${e.shared_rate_per_mile}`
     });
     let restaurantPic = $("<img>").attr({
       "class": "restaurant-img",
@@ -18,8 +21,7 @@ $.get("/api/restaurants", function(data){
   });
 
   $(".restaurant").on("click", function(){
-    let restId = $(this).attr("dbid");
-    showRestMenu(restId);
+    currentRestData = $(this).data();
+    showRestMenu(currentRestData);
   });
-
 });
