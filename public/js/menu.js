@@ -10,6 +10,7 @@ function showRestMenu(restData){
         "data-price": e.price,
         "data-restId": dbid
       }).append(`<td>${e.name}</td><td>${e.price}</td>`);
+      rowInfo.append("<button class=add-to-cart> Add To Cart</button>");
       menu.append(rowInfo);
       
     });
