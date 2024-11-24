@@ -5,18 +5,22 @@ h2 {
 
 .restaurant-list {
   background-color: aquamarine;
+  overflow: auto;
 }
 
 .menu {
   background-color: pink;
+  overflow: auto;
 }
 
 .cart {
   background-color: palegoldenrod;
+  overflow: auto;
 }
 
 .landing {
   display: grid;
+  height: 100vh;
 }
 
 @media screen and (max-width: 600px) {
@@ -26,7 +30,7 @@ h2 {
   }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 600px) and (max-width: 768px) {
   .landing {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -35,5 +39,20 @@ h2 {
   .restaurant-list {
     grid-column: span 2;
     grid-row: span 2;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .landing {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .restaurant-list {
+    grid-column: span 2;
+    grid-row: span 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 }

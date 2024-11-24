@@ -13,6 +13,7 @@ function addToCart(menuItem){
   if(isSameRestaurant){
     let itemDoesNotExist = true;
     if(allItems.length != 0){
+      $(".customer-cart").empty();
       allItems.forEach(e => {
         if(itemData.name == e.name){
           itemDoesNotExist = false;
@@ -26,7 +27,15 @@ function addToCart(menuItem){
       allItems.push(item);
     };
     cart.items = allItems;
-    console.log(cart)
+    let orderSubTotal = 0;
+    cart.items.forEach(e =>{
+      let {quantity, name, price} = e;
+      let itemsCalculatedPrice = quantity * Number(price);
+      let row = $("<tr>").append(`<td> ${quantity}  X ${name} ... ${itemsCalculatedPrice}</td>`);
+      orderSubTotal+= itemsCalculatedPrice;
+      $(".customer-cart").append(row);
+    })
+    $(".customer-cart").append(`<tr><td> Subtotal = ${orderSubTotal}`);
   } else {
     alert("You are ordering from a different restaurant. Would you like to cancel your current cart?");
   };
