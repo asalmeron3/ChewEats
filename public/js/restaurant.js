@@ -22,6 +22,15 @@ $.get("/api/restaurants", function(data){
 
   $(".restaurant").on("click", function(){
     currentRestData = $(this).data();
-    showRestMenu(currentRestData);
+    if(cart.items.length == 0) {
+      showRestMenu(currentRestData);  
+    } else if (currentRestData.dbid != cart.restId){
+      let emptyTheCart = confirm("You are ordering from a different restaurant. Would you like to cancel your current cart?");
+      if(emptyTheCart){
+        cart = {items: []};
+        $(".customer-cart").empty();
+        showRestMenu(currentRestData);  
+      }
+    }
   });
 });
