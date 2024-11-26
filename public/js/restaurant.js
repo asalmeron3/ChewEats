@@ -5,7 +5,9 @@ $.get("/api/restaurants", function(data){
     let restaurant = $("<div>").attr({
       "class": "restaurant",
       "data-dbid": `${e.id}`,
-      "data-rate": `${e.shared_rate_per_mile}`
+      "data-rate": `${e.shared_rate_per_mile}`,
+      "data-lat" : `${e.lat}`,
+      "data-lng" : `${e.lng}`
     });
     let restaurantPic = $("<img>").attr({
       "class": "restaurant-img",
@@ -23,11 +25,13 @@ $.get("/api/restaurants", function(data){
   $(".restaurant").on("click", function(){
     currentRestData = $(this).data();
     if(cart.items.length == 0) {
+      cart.restId = currentRestData.dbid;
       showRestMenu(currentRestData);  
     } else if (currentRestData.dbid != cart.restId){
       let emptyTheCart = confirm("You are ordering from a different restaurant. Would you like to cancel your current cart?");
       if(emptyTheCart){
         cart = {items: []};
+        orderSubTotal = 0;
         $(".customer-cart").empty();
         showRestMenu(currentRestData);  
       }

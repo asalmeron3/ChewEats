@@ -1,7 +1,16 @@
 let cart = {items: []};
+let orderSubTotal = 0;
 
-function reviewOrder(){
+function reviewOrder(buttonInfo){
+  console.log("coordinates: " + currentRestData.lat + " , " + currentRestData.lng);
   // will calculate the total of the order and the shared rates between the customer and the restaurant based on the area minimum
+  //"restaurant shared rate: " + currentRestData.rate);
+  //"Subtotal: " + buttonInfo.toFixed(2));
+  //"Subtotal Plus Tax: " + (Number(buttonInfo)*1.08).toFixed(2));
+  //"Total with 1 dollar app fee: " + ((Number(buttonInfo)*1.08 + 1).toFixed(2)));
+  //"This order will need your share of delivery or doesnot meet restaurants min");
+  //restaurant min revenue, max distance/ shared cost, location/coordinates
+  //have a select pop up with the characters and their location/ shared rate
 }
 
 
@@ -10,7 +19,6 @@ function addToCart(menuItem){
   let itemData = menuItem.data();
   let allItems = cart.items;
   let itemDoesNotExist = true;
-  let orderSubTotal = 0;
 
   if(allItems.length != 0){
     $(".customer-cart").empty();
@@ -35,10 +43,15 @@ function addToCart(menuItem){
     orderSubTotal+= itemsCalculatedPrice;
     $(".customer-cart").append(row);
   })
-  $(".customer-cart").append(`<tr><td> Subtotal = ${orderSubTotal.toFixed(2)}`);
+  $(".customer-cart").append(`<tr id=subtotal ><td> Subtotal = ${orderSubTotal.toFixed(2)}</td></tr>`);
+  $(".customer-cart").append(`<button class=place-order> Place My Order </button>`);
 };
 
 $(".menu").on("click", ".add-to-cart", function(){
   let rowDataObj = $($(this).parent());
   addToCart(rowDataObj);
+});
+
+$(".customer-cart").on("click", ".place-order", function(){
+  reviewOrder(orderSubTotal);
 });

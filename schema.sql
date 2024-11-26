@@ -1,20 +1,23 @@
--- DROP DATABASE cheweats;
+-- DROP DATABASE IF EXISTS cheweats;
 CREATE DATABASE cheweats;
-USE cheweats_restaurants;
+USE cheweats;
 
 CREATE TABLE restaurants (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
-  shared_rate_per_mile DECIMAL(4,2)
+  shared_rate_per_mile DECIMAL(4,2),
+  lat int NOT NULL,
+  lng int NOT NULL,
+  min_revenue int NOT NULL
 );
 
-INSERT INTO restaurants (name, shared_rate_per_mile) 
+INSERT INTO restaurants (name, shared_rate_per_mile, lat, lng, min_revenue) 
 VALUES
-("Mickey B's", 1.25),
-("Mendy's", 1),
-("Burger Ring", 1),
-("Pizza Lane", 1.5),
-("Sushi Paradise", 2);
+("Mickey B's", 1.25, 2, 2, 10),
+("Mendy's", 1, 3, 2, 15),
+("Burger Ring", 1, -1, 2, 5),
+("Pizza Lane", 1.5, -3, -3, 7),
+("Sushi Paradise", 2, 2, -4, 20);
 
 Select * from restaurants;
 
@@ -32,17 +35,19 @@ VALUES
 CREATE TABLE customers (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(40) NOT NULL,
-  shared_rate_per_mile DECIMAL(4,2)
+  shared_rate_per_mile DECIMAL(4,2),
+  lat int NOT NULL,
+  lng int NOT NULL
 );
 
-INSERT INTO customers (name, shared_rate_per_mile)
+INSERT INTO customers (name, shared_rate_per_mile, lat, lng)
 VALUES
-("Agatha", 1),
-("Teen", 3),
-("Rio", 2),
-("Lilia", 2),
-("Jen", 3.5),
-("Alice", 1.5);
+("Agatha", 1, 5, 5),
+("Teen", 3, 3, 1),
+("Rio", 2, -5, -5),
+("Lilia", 2, -3, 2),
+("Jen", 3.5, 4, 0),
+("Alice", 1.5, -2, 4);
 
 CREATE TABLE menu_items (
   id INT PRIMARY KEY AUTO_INCREMENT,
