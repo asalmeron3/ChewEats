@@ -16,7 +16,17 @@ module.exports = function(app) {
         return res.json("Error with /api/menu-items :"+ err);
       } else {
         return res.json(results);
-      }
+      };
+    });
+  });
+
+  app.get("/api/customers", function(req, res){
+    connection.query(selectAll("customers"), function(err, results){
+      if(err) {
+        return res.json("Error with /api/customers"+ err);
+      } else {
+        return res.json(results);
+      };
     });
   });
 };
