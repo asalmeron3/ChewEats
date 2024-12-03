@@ -3,7 +3,7 @@ let orderSubTotal = 0;
 
 function reviewOrder(buttonInfo){
   console.log("coordinates: " + currentRestData.lat + " , " + currentRestData.lng);
-  getCustomers();
+  // getCustomers();
   // will calculate the total of the order and the shared rates between the customer and the restaurant based on the area minimum
   //"restaurant shared rate: " + currentRestData.rate);
   //"Subtotal: " + buttonInfo.toFixed(2));

@@ -10,8 +10,8 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/menu-items/:restId?", function(req, res){
-    connection.query(selectAll("menu_items") + " WHERE restaurant_id ="  + req.params.restId, function(err, results){
+  app.get("/api/menu-items/:restId", function(req, res){
+    connection.query(selectAll("menu_items") + " WHERE restaurant_id = "  + req.params.restId, function(err, results){
       if(err) {
         return res.json("Error with /api/menu-items :"+ err);
       } else {
@@ -20,8 +20,8 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/customers", function(req, res){
-    connection.query(selectAll("customers"), function(err, results){
+  app.get("/api/customers/:id", function(req, res){
+    connection.query(selectAll("customers") + " WHERE id = " + req.params.id , function(err, results){
       if(err) {
         return res.json("Error with /api/customers"+ err);
       } else {
