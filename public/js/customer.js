@@ -30,5 +30,4 @@ $("#customer-dialog").dialog({
 
 $("#open-modal").on("click", function(){
   $("#customer-dialog").dialog("open");
-  console.log("clicked on modal button");
 });

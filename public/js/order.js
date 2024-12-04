@@ -1,19 +1,43 @@
 let cart = {items: []};
 let orderSubTotal = 0;
+const localTaxRate = 8;
+const appFee = 1;
 
-function reviewOrder(buttonInfo){
-  console.log("coordinates: " + currentRestData.lat + " , " + currentRestData.lng);
-  // getCustomers();
-  // will calculate the total of the order and the shared rates between the customer and the restaurant based on the area minimum
-  //"restaurant shared rate: " + currentRestData.rate);
-  //"Subtotal: " + buttonInfo.toFixed(2));
-  //"Subtotal Plus Tax: " + (Number(buttonInfo)*1.08).toFixed(2));
-  //"Total with 1 dollar app fee: " + ((Number(buttonInfo)*1.08 + 1).toFixed(2)));
-  //"This order will need your share of delivery or doesnot meet restaurants min");
-  //restaurant min revenue, max distance/ shared cost, location/coordinates
-  //have a select pop up with the characters and their location/ shared rate
+
+function reviewOrder(){
+  if(currentCustomer == undefined){
+    alert("Please select a customer before placing your order");
+  } else{
+    let totalSharedRatePerMile = Number(currentCustomer.shared_rate_per_mile) + Number(currentRestData.rate);
+    let deliveryDistance = calculateDeliveryDistance(currentRestData.lat, currentRestData.long, currentCustomer.lat, currentCustomer.long);
+    let isOrderEligibleForDelivery = determineDeliveryEligibility(totalSharedRatePerMile, deliveryDistance, orderSubTotal, currentRestData.rev_min);
+
+    if(isOrderEligibleForDelivery){
+      let foodTotal = orderSubTotal * (1+ localTaxRate/100);
+      let customerDeliveryPortion = currentCustomer.shared_rate_per_mile * deliveryDistance;
+      let orderTotal = Number(foodTotal + customerDeliveryPortion + appFee).toFixed(2);
+      alert("Your order IS eligible for delivery. Your total will be: " + orderTotal);
+    } else {
+      alert("Your order is not eligible for delivery. Please add more items or increase your share of the delivery rate");
+    }
+  }
 }
 
+function calculateDeliveryDistance(resLat, resLong, cusLat, cusLong){
+  let latDiff = Math.abs(resLat - cusLat);
+  let longDiff = Math.abs(resLong - cusLong);
+  let distance = Math.sqrt(latDiff^2 + longDiff^2);
+  return distance;
+}
+
+function determineDeliveryEligibility(sharedRate, distance, orderSubTotal, restProfitMinimum){
+  let profit = orderSubTotal - (sharedRate * distance);
+  if(profit > restProfitMinimum) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 function addToCart(menuItem){
   // menuItem is an obj with the keys name, price, and restId
@@ -54,5 +78,5 @@ $(".menu").on("click", ".add-to-cart", function(){
 });
 
 $(".customer-cart").on("click", ".place-order", function(){
-  reviewOrder(orderSubTotal);
+  reviewOrder();
 });

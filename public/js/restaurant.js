@@ -7,7 +7,8 @@ $.get("/api/restaurants", function(data){
       "data-dbid": `${e.id}`,
       "data-rate": `${e.shared_rate_per_mile}`,
       "data-lat" : `${e.lat}`,
-      "data-lng" : `${e.lng}`
+      "data-lng" : `${e.lng}`,
+      "data-rev_min" : `${e.min_revenue}`
     });
     let restaurantPic = $("<img>").attr({
       "class": "restaurant-img",
