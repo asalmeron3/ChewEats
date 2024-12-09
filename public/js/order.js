@@ -7,7 +7,8 @@ const appFee = 1;
 
 function reviewOrder(){
   if(currentCustomer == undefined){
-    alert("Please select a customer before placing your order");
+    //alert("Please select a customer before placing your order");
+    $("#customer-dialog").dialog("open");
   } else{
     let totalSharedRatePerMile = Number(currentCustomer.shared_rate_per_mile) + Number(currentRestData.rate);
     deliveryDistance = calculateDeliveryDistance(currentRestData.lat, currentRestData.lng, currentCustomer.lat, currentCustomer.lng);

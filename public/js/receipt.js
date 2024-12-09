@@ -1,7 +1,7 @@
 function compileReceipt(){
-  const customerSharedRate = Number(currentCustomer.shared_rate_per_mile).toFixed(2);
-  const restaurantSharedRate = Number(currentRestData.rate).toFixed(2);
-  const taxTotal = Number((localTaxRate/100) * Number(orderSubTotal)).toFixed(2);
+  const customerSharedRate = currentCustomer.shared_rate_per_mile;
+  const restaurantSharedRate = currentRestData.rate;
+  const taxTotal = (localTaxRate/100) * orderSubTotal;
 
   let deliveryFeeInfo = calculateDeliveryShares(localMarketRate, deliveryDistance, customerSharedRate, restaurantSharedRate);
   let customerTotal = calculateCustomerTotal(orderSubTotal, taxTotal, deliveryFeeInfo.customerDeliveryFee, appFee);
@@ -14,7 +14,7 @@ function compileReceipt(){
     <p> Customer Shared Rate : $ ${customerSharedRate} per mile </p>
     <br>
     <p> Subtotal: + ${orderSubTotal}</p>
-    <p> Local Tax: + ${taxTotal}
+    <p> Local Tax: + ${Number(taxTotal).toFixed(2)}
     <p> Fair Trade Delivery Fee: + ${deliveryFeeInfo.deliveryTotal}</p>
     <p> Restaurant Delivery Coverage: - ${deliveryFeeInfo.restaurantDeliveryFee} </p>
     <p> App Fee: + ${appFee} </p>
@@ -27,13 +27,13 @@ function compileReceipt(){
 };
 
 function calculateDeliveryShares(localMarketRate, deliveryDistance, customerSharedRate, restaurantSharedRate) {
-  const deliveryTotal = Number(localMarketRate * deliveryDistance).toFixed(2);
-  const rateOverage = Number(localMarketRate - customerSharedRate - restaurantSharedRate);
-  const overageAmount = Number(rateOverage * deliveryDistance).toFixed(2);
-  const halfOverageAmount = Number(overageAmount/2);
+  const deliveryTotal = localMarketRate * deliveryDistance;
+  const rateOverage = localMarketRate - customerSharedRate - restaurantSharedRate;
+  const overageAmount = rateOverage * deliveryDistance;
+  const halfOverageAmount = overageAmount/2;
 
-  let customerDeliveryFee = Number((customerSharedRate * deliveryDistance) - halfOverageAmount).toFixed(2);
-  let restaurantDeliveryFee = Number((restaurantSharedRate * deliveryDistance) - halfOverageAmount).toFixed(2);
+  let customerDeliveryFee = (customerSharedRate * deliveryDistance) - halfOverageAmount;
+  let restaurantDeliveryFee = (restaurantSharedRate * deliveryDistance) - halfOverageAmount;
   
   let deliveryFeeInfo = {
     customerDeliveryFee: customerDeliveryFee, 
@@ -45,7 +45,8 @@ function calculateDeliveryShares(localMarketRate, deliveryDistance, customerShar
 };
 
 function calculateCustomerTotal(orderSubTotal, taxTotal, customerDeliveryFee, appFee) {
-  let total = orderSubTotal + Number(taxTotal) + Number(customerDeliveryFee) + appFee;
+  console.log(orderSubTotal, taxTotal, customerDeliveryFee, appFee);
+  let total = orderSubTotal + taxTotal + customerDeliveryFee + appFee;
   return Number(total).toFixed(2);
 }
 
