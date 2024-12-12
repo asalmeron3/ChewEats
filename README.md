@@ -6,6 +6,10 @@ This is a proof of concept for a fair trade delivery service. The idea is the ap
 ## API
 
 ### Routes
+- [Restaurants](#restaurants)
+- [Menu](#menu)
+
+#### Restaurants
 
 ```
 /api/restaurants
@@ -33,3 +37,30 @@ This is a proof of concept for a fair trade delivery service. The idea is the ap
 | lat | number | Latitudal location of restaurant |
 | lng | number | Longitudal locatoin of restaurant |
 | min_revenue | decimal | The minimum revenue the restaurant would like to have minus the delivery fee |
+
+
+#### Menu
+
+```
+/api/menu-items/:restId
+```
+**restId**:  this parameter refers to the unique id of the restaurant for which menu items to retrieve
+
+```
+[ //...
+  {
+    id : 456
+    name: "Big Snack"
+    price : 3.00
+    restaurant_id: 873293
+  }
+  //...
+]
+```
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| id | number | Unique menu item ID |
+| name | String | Name of the menu item |
+| price | decimal | Price of the menu item|
+| restaurant_id | number | The id of the restaurant that the menu item belongs to|
